@@ -1,9 +1,9 @@
 // ====== PERSONALIZA AQUÍ ======
 const INVITADO = "D";       // nombre de tu invitado/a
 const HORA = "Cuando tengas hambre";  // hora de la cena
-const WA = "5353850111";    // WhatsApp de Romi (53 + 53850111)
+const WA = "5353850111";    // WhatsApp de Mercedes (53 + 53850111)
 // ===============================
-const ROMI = "romi.png"; // imagen de Romi (PNG con fondo transparente)
+const MERCEDES = "mercedes.png"; // imagen de Mercedes (PNG con fondo transparente)
 const $=id=>document.getElementById(id), stage=$('stage'), btns=$('btns'), text=$('text');
 let hop=0, shake=0;
 
@@ -82,10 +82,10 @@ try{
   // personaje (plano con recorte) y sombra de contacto
   const shT=tex(128,64,(c,w,h)=>{const g=c.createRadialGradient(w/2,h/2,2,w/2,h/2,w/2);g.addColorStop(0,'rgba(0,0,0,.85)');g.addColorStop(1,'rgba(0,0,0,0)');c.fillStyle=g;c.fillRect(0,0,w,h)});
   const sh=add(new THREE.PlaneGeometry(2.5,1.05),new THREE.MeshBasicMaterial({map:shT,transparent:true,depthWrite:false}),0,.012,.44,false,false);sh.rotation.x=-Math.PI/2;
-  let romi;const CH=3.3;
-  new THREE.TextureLoader().load(ROMI,t=>{t.encoding=THREE.sRGBEncoding;t.anisotropy=8;
-    const pg=new THREE.PlaneGeometry(CH*t.image.width/t.image.height,CH);pg.translate(0,CH/2,0);romi=new THREE.Mesh(pg,new THREE.MeshBasicMaterial({map:t,transparent:true,alphaTest:.04,color:0xf2ece4}));
-    romi.position.set(0,-.02,.5);sc.add(romi);const fb=$('fb');fb&&fb.remove()});
+  let mercedes;const CH=3.3;
+  new THREE.TextureLoader().load(MERCEDES,t=>{t.encoding=THREE.sRGBEncoding;t.anisotropy=8;
+    const pg=new THREE.PlaneGeometry(CH*t.image.width/t.image.height,CH);pg.translate(0,CH/2,0);mercedes=new THREE.Mesh(pg,new THREE.MeshBasicMaterial({map:t,transparent:true,alphaTest:.04,color:0xf2ece4}));
+    mercedes.position.set(0,-.02,.5);sc.add(mercedes);const fb=$('fb');fb&&fb.remove()});
 
   // luces
   sc.add(new THREE.HemisphereLight(0xdfeaff,0x8a6a4a,.75));
@@ -98,11 +98,11 @@ try{
   const clock=new THREE.Clock();
   (function loop(){requestAnimationFrame(loop);const t=clock.getElapsedTime();
     cam.position.set(mx*.6,1.75-my*.15,7.2);cam.lookAt(look);
-    if(romi){romi.scale.y=1+Math.sin(t*2.2)*.008+hop*.04*Math.abs(Math.sin(t*10));romi.rotation.y=mx*.1;romi.rotation.z=Math.sin(t*45)*shake*.04}
+    if(mercedes){mercedes.scale.y=1+Math.sin(t*2.2)*.008+hop*.04*Math.abs(Math.sin(t*10));mercedes.rotation.y=mx*.1;mercedes.rotation.z=Math.sin(t*45)*shake*.04}
     hop*=.95;shake*=.93;
     flames.forEach((f,i)=>{const k=1+Math.sin(t*9+i*2)*.1+Math.random()*.05;f[0].scale.set(k,1.7*k,k);f[1].intensity=.8*k});
     r.render(sc,cam)})();
-}catch(e){stage.insertAdjacentHTML('beforeend','<img id="fb" alt="Romi" src="'+ROMI+'">')}
+}catch(e){stage.insertAdjacentHTML('beforeend','<img id="fb" alt="Mercedes" src="'+MERCEDES+'">')}
 })();
 const face=(ex,pose,mk='')=>{$('mark').textContent=mk;if(ex=='happy')hop=1;if(ex=='shock')shake=1};
 
@@ -147,17 +147,17 @@ function finalStep(){
 function win(){
   for(let i=0;i<26;i++){const c=document.createElement('div');c.className='confetti';c.textContent=['✨','🎉','🍷','⭐'][i%4];
     c.style.left=Math.random()*95+'%';c.style.animationDelay=(Math.random()*1.5)+'s';document.body.appendChild(c);setTimeout(()=>c.remove(),5000)}
-  const msg='¡Hola Romi! Soy '+INVITADO+' 🎟️\nAcepto tu propuesta de cena en equipo el martes 24 de noviembre.\nMenú que escogí: '+menu+'.\nCódigo de vestimenta: informal, en chancletas 🩴\n¡Nos vemos con vinito!';
+  const msg='¡Hola Mercedes! Soy '+INVITADO+' 🎟️\nAcepto tu propuesta de cena en equipo el martes 24 de noviembre.\nMenú que escogí: '+menu+'.\nCódigo de vestimenta: informal, en chancletas 🩴\n¡Nos vemos con vinito!';
   let bars='';for(let i=0;i<46;i++)bars+='<i style="width:'+(1+Math.floor(Math.random()*4))+'px"></i>';
   $('game').innerHTML=
-   '<div class="ticket"><div class="tk top"><div class="tkh"><img src="'+ROMI+'" alt="Romi"><div><h2>Cena con Romi</h2><span>Cena en equipo para dos</span></div></div>'+
+   '<div class="ticket"><div class="tk top"><div class="tkh"><img src="'+MERCEDES+'" alt="Mercedes"><div><h2>Cena con Mercedes</h2><span>Cena en equipo para dos</span></div></div>'+
    '<div class="rows"><div><small>Fecha</small><strong>Martes 24 de noviembre</strong></div><div><small>Hora</small><strong>'+HORA+'</strong></div>'+
    '<div class="full"><small>Lugar</small><strong>En casa de '+INVITADO+' (el amor de mi vida)</strong></div>'+
    '<div class="full"><small>Menú</small><strong>'+menu+'</strong></div>'+
    '<div><small>Bebida</small><strong>Vinito incluido</strong></div><div><small>Dress code</small><strong>Informal, en chancletas</strong></div>'+
-   '<div class="full"><small>Ayudante oficial</small><strong>Romi (que se le olvida echarle el pollo al arroz con pollo)</strong></div></div></div>'+
+   '<div class="full"><small>Ayudante oficial</small><strong>Mercedes (que se le olvida echarle el pollo al arroz con pollo)</strong></div></div></div>'+
    '<div class="perf"></div><div class="tk b bot"><div class="bars">'+bars+'</div><p>N.º 2411-CENA · No reembolsable, sí repetible</p></div></div>'+
-   '<a class="cta" target="_blank" rel="noopener" href="https://wa.me/'+WA+'?text='+encodeURIComponent(msg)+'">📲 Enviar mi respuesta a Romi por WhatsApp</a>'+
+   '<a class="cta" target="_blank" rel="noopener" href="https://wa.me/'+WA+'?text='+encodeURIComponent(msg)+'">📲 Enviar mi respuesta a Mercedes por WhatsApp</a>'+
    '<button class="alt again" onclick="location.reload()">↻ Volver a empezar</button>';
 }
 start();
